@@ -17,12 +17,20 @@
         </div>
         <section class="section">
             <div class="card">
+                <div class="card-header">
+                    @if (session()->has('success'))
+                        <div class="alert alert-{{ session('style') }} alert-dismissible fade show" role="alert">
+                            {{ session('success') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+                </div>
                 <div class="card-body">
                     <table class="table table-striped" id="table1">
                         <thead>
                             <tr>
                                 <th>Nama</th>
-                                <th>Foto</th>
+
                                 <th>Email</th>
                                 <th>Pesan</th>
 
@@ -32,10 +40,7 @@
                         <tbody>
                             @forelse ($datas as $data)
                                 <tr>
-                                    <td>{{ $data->user->name }} </td>
-                                    <td><img src="{{ Storage::url($data->user->foto) }}" alt=""
-                                            class="img-thumbnail">
-                                    </td>
+                                    <td>{{ $data->name }} </td>
                                     <td>{{ $data->email }}</td>
                                     <td>{{ $data->message }}</td>
                                     <td>

@@ -17,18 +17,30 @@
                                     <div class="form-group">
                                         <label for="skill">Nama SKill</label>
                                         <input type="text" id="skill" class="form-control" name="skill"
-                                            placeholder="Skill" value="{{ $data->skills }}">
+                                            placeholder="Skill" value="{{ $data->skill }}">
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label for="persen">Persen</label>
-                                        <input type="number" min="0" max="100" id="persen"
-                                            class="form-control" name="persen" placeholder="Input Number"
-                                            value="{{ $data->persen }}">
+                                        <label for="level">Level</label>
+                                        <select name="level" id="level" class="form-select">
+                                            <option value="{{ $data->level }}">-Jangan Diubah - {{ $data->level }}--
+                                            </option>
+                                            <option value="BEGINNER">BEGINNER</option>
+                                            <option value="MIDDLE">MIDDLE</option>
+                                            <option value="PRO">PRO</option>
+                                            <option value="EXPERT">EXPERT</option>
+                                        </select>
                                     </div>
                                 </div>
-
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="link_sertifikat">Link Sertifikat</label>
+                                        <input type="text" id="link_sertifikat" class="form-control"
+                                            name="link_sertifikat" placeholder="Link Sertifikat"
+                                            value="{{ $data->link_sertifikat }}">
+                                    </div>
+                                </div>
                                 <div class="col-12">
 
                                     <div class="col-12 d-flex justify-content-end">

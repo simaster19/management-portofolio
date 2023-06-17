@@ -28,6 +28,11 @@
                                         height="250px"></td>
                             </tr>
                             <tr>
+                                <th>Background</th>
+                                <td><img src="{{ Storage::url($data['background']) }}" alt="Background" width="250px"
+                                        height="250px"></td>
+                            </tr>
+                            <tr>
                                 <th>Nama</th>
                                 <td>{{ $data->name }}</td>
                             </tr>

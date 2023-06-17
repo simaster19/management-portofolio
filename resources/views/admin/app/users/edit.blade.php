@@ -23,11 +23,20 @@
                                     </div>
                                 </div>
                                 <div class="col-12">
+                                    <div class="form-group ">
+                                        <label for="background">Background</label>
+                                        <div class="position-relative">
+                                            <input type="file" name="background" class="form-control" id="background">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
                                     <div class="form-group has-icon-left">
                                         <label for="name">Nama</label>
                                         <div class="position-relative">
                                             <input type="text" name="name" class="form-control" placeholder="Nama"
-                                                id="name" value="{{ $data->name }}">
+                                                id="name" value="{{ $data->name }}" required>
                                             <div class="form-control-icon">
                                                 <i class="bi bi-person"></i>
                                             </div>
@@ -40,7 +49,7 @@
                                         <label for="email">Email</label>
                                         <div class="position-relative">
                                             <input type="email" name="email" class="form-control" placeholder="Email"
-                                                id="email" value="{{ $data->email }}">
+                                                id="email" value="{{ $data->email }}" required>
                                             <div class="form-control-icon">
                                                 <i class="bi bi-envelope"></i>
                                             </div>
@@ -52,7 +61,8 @@
                                         <label for="username">Username</label>
                                         <div class="position-relative">
                                             <input type="text" name="username" class="form-control"
-                                                placeholder="Username" id="username" value="{{ $data->username }}">
+                                                placeholder="Username" id="username" value="{{ $data->username }}"
+                                                required>
                                             <div class="form-control-icon">
                                                 <i class="bi bi-phone"></i>
                                             </div>

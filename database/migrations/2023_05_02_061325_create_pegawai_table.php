@@ -13,16 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('skills', function (Blueprint $table) {
+        Schema::create('pegawai', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_user');
-            $table->string('skill');
-            $table->string('level')->default('MIDDLE'); //BEGINNER,MIDDLE,PRO,EXPERT
-            $table->string('link_sertifikat');
-            $table->softDeletes();
+            $table->string('nik')->unique();
+            $table->string('nama', 50);
+            $table->text('foto');
+            $table->string('jabatan', 50);
+            $table->integer('status')->default(1);
+            $table->string('role', 30); //ADMIN
+            $table->string('username', 50);
+            $table->text('password');
             $table->timestamps();
-
-            $table->foreign('id_user')->references('id')->on('users');
         });
     }
 
@@ -33,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('skills');
+        Schema::dropIfExists('pegawai');
     }
 };

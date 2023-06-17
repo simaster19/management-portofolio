@@ -28,6 +28,9 @@
                 <li class="submenu-item ">
                     <a href="{{ route('skills.index') }}">Skils</a>
                 </li>
+                <li class="submenu-item ">
+                    <a href="{{ route('skills.index') }}">Blog</a>
+                </li>
             </ul>
         </li>
 
@@ -37,10 +40,5 @@
                 <span>Logout</span>
             </a>
         </li>
-
-
-
-
-
     </ul>
 </div>

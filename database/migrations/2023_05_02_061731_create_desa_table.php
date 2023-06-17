@@ -13,16 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('skills', function (Blueprint $table) {
+        Schema::create('desa', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_user');
-            $table->string('skill');
-            $table->string('level')->default('MIDDLE'); //BEGINNER,MIDDLE,PRO,EXPERT
-            $table->string('link_sertifikat');
-            $table->softDeletes();
+            $table->string('nama_desa', 100);
+            $table->text('alamat');
+            $table->string('no_telp', 20);
+            $table->string('kecamatan', 50);
+            $table->string('kota', 30);
+            $table->string('provinsi', 50);
             $table->timestamps();
-
-            $table->foreign('id_user')->references('id')->on('users');
         });
     }
 
@@ -33,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('skills');
+        Schema::dropIfExists('desa');
     }
 };

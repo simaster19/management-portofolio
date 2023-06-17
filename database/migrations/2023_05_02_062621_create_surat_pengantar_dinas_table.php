@@ -13,13 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('messages', function (Blueprint $table) {
+        Schema::create('surat_pengantar_dinas', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_pegawai');
+            $table->unsignedBigInteger('id_profil_desa');
+            $table->unsignedBigInteger('id_surat');
 
-            $table->string('name');
-            $table->string('email');
-            $table->text('message');
-            $table->softDeletes();
+            $table->text('uraian');
+            $table->string('jumlah', 50);
+            $table->text('keterangan');
             $table->timestamps();
         });
     }
@@ -31,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('messages');
+        Schema::dropIfExists('surat_pengantar_dinas');
     }
 };

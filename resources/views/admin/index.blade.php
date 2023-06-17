@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Mazer Admin Dashboard</title>
+    <title>Dashboard - Miftakhul Kirom</title>
 
 
 
@@ -18,10 +18,8 @@
             <div class="sidebar-wrapper active">
                 <div class="sidebar-header position-relative">
                     <div class="d-flex justify-content-between align-items-center">
-                        <div class="logo">
-                            <a href="{{ route('dashboard') }}"><img
-                                    src="{{ url('backend/assets/images/logo/logo.svg') }}" alt="Logo"
-                                    srcset=""></a>
+                        <div class="logo h5">
+                            <a href="{{ route('dashboard') }}">{{ auth()->user()->name }}</a>
                         </div>
                         <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -71,18 +69,6 @@
                 <h3>@yield ('title') </h3>
             </div>
             @yield('content')
-
-            <footer>
-                <div class="footer clearfix mb-0 text-muted">
-                    <div class="float-start">
-                        <p>2021 &copy; Mazer</p>
-                    </div>
-                    <div class="float-end">
-                        <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-                                href="https://saugi.me">Saugi</a></p>
-                    </div>
-                </div>
-            </footer>
         </div>
     </div>
     @include('admin.layouts.footer')

@@ -31,11 +31,14 @@ class SkillController extends Controller
 
         Skill::create([
             'id_user' => $id_user,
-            'skills' => $data['skill'],
-            'persen' => $data['persen']
+            'skill' => $data['skill'],
+            'level' => $data['level'],
+            'link_sertifikat' => $data['link_sertifikat']
         ]);
 
-        return redirect()->route('skills.index');
+        return redirect()->route('skills.index')->with(
+            ['success' => 'Data berhasil ditambahkan!', 'style' => 'success']
+        );
     }
 
 
@@ -54,7 +57,6 @@ class SkillController extends Controller
         ]);
     }
 
-
     public function update(Request $request, $id)
     {
 
@@ -63,19 +65,19 @@ class SkillController extends Controller
 
         $data_id->update([
             'id_user' => Auth::user()->id,
-            'skills' => $data['skill'],
-            'persen' => $data['persen']
+            'skill' => $data['skill'],
+            'level' => $data['level'],
+            'link_sertifikat' => $data['link_sertifikat']
         ]);
 
-        return redirect()->route('skills.index');
+        return redirect()->route('skills.index')->with(['success' => 'Data berhasil diubah!', 'style' => 'success']);
     }
-
 
     public function destroy($id)
     {
         $data = Skill::findOrFail($id);
         $data->destroy($id);
 
-        return redirect()->route('skills.index');
+        return redirect()->route('skills.index')->with(['success' => 'Data berhasil dihapus!', 'style' => 'danger']);
     }
 }

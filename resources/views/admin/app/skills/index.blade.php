@@ -20,6 +20,12 @@
                 <div class="card-header">
                     <a href="{{ route('skills.create') }}"><button type="button" class="btn btn-success rounded-pill"
                             title="Add"><i class="bi bi-plus"></i></button></a>
+                    @if (session()->has('success'))
+                        <div class="alert alert-{{ session('style') }} alert-dismissible fade show" role="alert">
+                            {{ session('success') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
                 </div>
 
                 <div class="card-body">
@@ -28,8 +34,8 @@
                             <tr>
                                 <th>Nama User</th>
                                 <th>Skill</th>
-                                <th>Persen</th>
-                                <th>Chart</th>
+                                <th>Level</th>
+                                <th>Link Sertifikat</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -37,16 +43,11 @@
                             @forelse ($datas as $data)
                                 <tr>
                                     <td>{{ $data->user->name }} </td>
-                                    <td>{{ $data->skills }}</td>
+                                    <td>{{ $data->skill }}</td>
 
-                                    <td>{{ $data->persen }}</td>
+                                    <td>{{ $data->level }}</td>
                                     <td>
-                                        <div class="progress progress-primary mt-3  mb-4">
-                                            <div class="progress-bar progress-label" role="progressbar"
-                                                style="width: {{ $data->persen }}%" aria-valuenow="{{ $data->persen }}"
-                                                aria-valuemin="0" aria-valuemax="100">
-                                            </div>
-                                        </div>
+                                        {{ $data->link_sertifikat }}
                                     </td>
                                     <td>
                                         <a href="{{ route('skills.edit', $data->id) }}">

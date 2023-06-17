@@ -20,6 +20,12 @@
                 <div class="card-header">
                     <a href="{{ route('users.create') }}"><button type="button" class="btn btn-success rounded-pill"
                             title="Add"><i class="bi bi-person-plus"></i></button></a>
+                    @if (session()->has('success'))
+                        <div class="alert alert-{{ session('style') }} alert-dismissible fade show" role="alert">
+                            {{ session('success') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
                 </div>
 
                 <div class="card-body">
@@ -54,7 +60,8 @@
                                             method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger rounded-pill" title="Hapus"><i
+                                            <button type="submit" onclick="return confirm('Hapus Data ini?')"
+                                                class="btn btn-danger rounded-pill" title="Hapus"><i
                                                     class="bi bi-trash"></i></button>
                                         </form>
 

@@ -19,15 +19,17 @@ class AuthenticationController extends Controller
 
         $credentials = $request->validate([
             'username' => 'required|min:3',
-            'password' => 'min:3'
+            'password' => 'required|min:3'
         ]);
 
         if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->route('dashboard');
+            if (Auth::user()->roles == 'ADMIN') {
+                $request->session()->regenerate();
+                return redirect()->route('dashboard');
+            }
         }
 
-        return back()->with('loginError', 'Login Failed!');
+        return back()->with('error', 'Username atau Password salah!');
     }
 
     public function logout()

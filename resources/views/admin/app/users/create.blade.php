@@ -16,7 +16,18 @@
                                     <div class="form-group ">
                                         <label for="foto">Foto</label>
                                         <div class="position-relative">
-                                            <input type="file" name="foto" class="form-control" id="foto">
+                                            <input type="file" name="foto" class="form-control" id="foto"
+                                                required>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group ">
+                                        <label for="background">Background</label>
+                                        <div class="position-relative">
+                                            <input type="file" name="background" class="form-control" id="background"
+                                                required>
 
                                         </div>
                                     </div>
@@ -26,7 +37,7 @@
                                         <label for="name">Nama</label>
                                         <div class="position-relative">
                                             <input type="text" name="name" class="form-control" placeholder="Nama"
-                                                id="name">
+                                                id="name" required>
                                             <div class="form-control-icon">
                                                 <i class="bi bi-person"></i>
                                             </div>
@@ -39,7 +50,7 @@
                                         <label for="email">Email</label>
                                         <div class="position-relative">
                                             <input type="email" name="email" class="form-control" placeholder="Email"
-                                                id="email">
+                                                id="email" required>
                                             <div class="form-control-icon">
                                                 <i class="bi bi-envelope"></i>
                                             </div>
@@ -51,7 +62,7 @@
                                         <label for="username">Username</label>
                                         <div class="position-relative">
                                             <input type="text" name="username" class="form-control"
-                                                placeholder="Username" id="username">
+                                                placeholder="Username" id="username" required>
                                             <div class="form-control-icon">
                                                 <i class="bi bi-phone"></i>
                                             </div>
@@ -63,7 +74,7 @@
                                         <label for="password">Password</label>
                                         <div class="position-relative">
                                             <input type="password" name="password" class="form-control"
-                                                placeholder="Password" id="password">
+                                                placeholder="Password" id="password" required>
                                             <div class="form-control-icon">
                                                 <i class="bi bi-lock"></i>
                                             </div>

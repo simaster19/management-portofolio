@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\AuthenticationController;
 
 Route::get('/', [ViewController::class, 'index'])->name('main_personal');
 Route::get('/detail/{slug}', [ViewController::class, 'show'])->name('detail_personal');
+Route::post('/messages', [MessageController::class, 'store'])->name('store');
 
 Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

@@ -14,35 +14,22 @@ use App\Http\Requests\RequestProject;
 
 class ProjectController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $datas = Project::with(['user'])->get();
+
         return view('admin.app.projects.index', [
             'datas' => $datas
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('admin.app.projects.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         $id_user = Auth::user()->id;
@@ -51,7 +38,7 @@ class ProjectController extends Controller
         $data = $request->all();
 
         $data['cover'] = $request->file('cover')->store(
-            'assets/cover',
+            'assets/images/cover',
             ['disk' => 'public']
         );
 
@@ -63,8 +50,9 @@ class ProjectController extends Controller
             'slug' => Str::of($data['judul_project'])->slug('-'),
             'project_url' => $data['project_url'],
             'keterangan' => $data['keterangan'],
-            'dibuat_dengan' => implode(',', $data['development'])
-
+            'dibuat_dengan' => implode(',', $data['development']),
+            'status' => $data['status'],
+            'nama_client' => $data['nama_client']
         ]);
 
 
@@ -74,7 +62,7 @@ class ProjectController extends Controller
                 Image::create([
                     'id_project' => $project['id'],
                     'gambar' => $gambar->store(
-                        'assets/gambar',
+                        'assets/images/gambar',
                         ['disk' => 'public']
                     )
                 ]);
@@ -82,42 +70,31 @@ class ProjectController extends Controller
         }
 
 
-        return redirect()->route('projects.index');
+        return redirect()->route('projects.index')->with(
+            [
+                'success' => 'Data berhasil ditambahkan!',
+                'style' => 'success'
+            ]
+        );
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
+        $data = Project::with(['user', 'image'])->where('id', $id)->get()->first();
         return view('admin.app.projects.detail', [
-            'data' => Project::with(['user', 'image'])->where('id', $id)->get()->first()
+            'data' => $data
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
+        $data = Project::with(['image'])->where('id', $id)->get()->first();
         return view('admin.app.projects.edit', [
-            'data' => Project::with(['image'])->where('id', $id)->get()->first()
+            'data' => $data
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
         $id_user = Auth::user()->id;
@@ -131,20 +108,21 @@ class ProjectController extends Controller
             File::delete('storage/' . $project['cover']);
 
             $data['cover'] = $request->file('cover')->store(
-                'assets/cover',
+                'assets/images/cover',
                 ['disk' => 'public']
             );
         }
 
         if ($request->has('gambar')) {
-            foreach ($project->image as $gambarX) {
-                File::delete('storage/' . $gambarX['gambar']);
+            foreach ($project->image as $images) {
+                File::delete('storage/' . $images['gambar']);
             }
+
             foreach ($gambars as $gambar) {
                 Image::create([
                     'id_project' => $project['id'],
                     'gambar' => $gambar->store(
-                        'assets/gambar',
+                        'assets/images/gambar',
                         ['disk' => 'public']
                     )
                 ]);
@@ -161,11 +139,15 @@ class ProjectController extends Controller
             'slug' => Str::of($data['judul_project'])->slug('-'),
             'project_url' => $data['project_url'],
             'keterangan' => $data['keterangan'],
-            'dibuat_dengan' => $data['development']
-
+            'dibuat_dengan' => $data['development'],
+            'status' => $data['status'],
+            'nama_client' => $data['nama_client']
         ]);
 
-        return redirect()->route('projects.index');
+        return redirect()->route('projects.index')->with([
+            'success' => 'Data berhasil diubah!',
+            'style' => 'success'
+        ]);
     }
 
 
@@ -181,6 +163,8 @@ class ProjectController extends Controller
         File::delete('storage/' . $data['cover']);
         Project::destroy($id);
 
-        return redirect()->route('projects.index');
+        return redirect()->route('projects.index')->with([
+            'success' => 'Data berhasil dihapus!', 'style' => 'danger'
+        ]);
     }
 }

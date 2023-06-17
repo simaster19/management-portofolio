@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Portfolio Details - iPortfolio Bootstrap Template</title>
+    <title>Detail - {{ $data->judul }}</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="{{ url('frontend/assets/img/favicon.png') }}" rel="icon">
-    <link href="{{ url('frontend/assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+    {{-- <link href="{{ url('frontend/assets/img/favicon.png') }}" rel="icon">
+    <link href="{{ url('frontend/assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon"> --}}
 
     <!-- Google Fonts -->
     <link
@@ -77,9 +78,23 @@
                         <div class="portfolio-info">
                             <h3>Project Informasi</h3>
                             <ul>
-                                <li><strong>Kategori</strong>: {{ $data->jenis_project }}</li>
+                                <li><strong>Kategori</strong>: {{ strToUpper($data->jenis_project) }}</li>
                                 <li><strong>Project URL</strong>: <a
-                                        href="{{ $data->project_url }}">{{ $data->project_url }}</a></li>
+                                        href="@if (!str_contains($data->project_url, '//')) // @endif{{ $data->project_url }}">{{ $data->project_url }}</a>
+                                </li>
+                                <li><strong>Type</strong>: {{ $data->status }}
+                                </li>
+                                @if ($data->nama_client !== '-')
+                                    <li><strong>Client</strong>: {{ $data->nama_client }}
+                                    </li>
+                                @endif
+                                <li><strong>Dibuat Dengan</strong>:
+                                    <ol style="font-size: 9pt; margin-left: -1.2rem" class="text-bold mt-1">
+                                        @foreach ($dibuat_dengan as $dev)
+                                            <li>{{ $dev }}</li>
+                                        @endforeach
+                                    </ol>
+                                </li>
                             </ul>
                         </div>
                         <div class="portfolio-description">
@@ -110,7 +125,6 @@
     <script src="{{ url('frontend/assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
     <script src="{{ url('frontend/assets/vendor/typed.js/typed.min.js') }}"></script>
     <script src="{{ url('frontend/assets/vendor/waypoints/noframework.waypoints.js') }}"></script>
-    <script src="{{ url('frontend/assets/vendor/php-email-form/validate.js') }}"></script>
 
     <!-- Template Main JS File -->
     <script src="{{ url('frontend/assets/js/main.js') }}"></script>

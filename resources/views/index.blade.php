@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
+
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Personal Portfolio</title>
+    <title>Miftakhul Kirom</title>
     <meta content="" name="description">
-    <meta content="" name="keywords">
+    <meta content="portofolio responsive" name="keywords">
 
     <!-- Favicons -->
     {{-- <link href="{{ url('frontend/assets/img/favicon.png') }}" rel="icon">
@@ -40,9 +42,8 @@
         <div class="d-flex flex-column">
 
             <div class="profile">
-                <img src="{{ url('frontend/assets/img/profile-img.jpg') }}" alt=""
-                    class="img-fluid rounded-circle">
-                <h1 class="text-light"><a href="{{ route('main_personal') }}">Miftakhul Kirom</a></h1>
+                <img src="{{ Storage::url($users->foto) }}" alt="" class="img-fluid rounded-circle">
+                <h1 class="text-light"><a href="{{ route('main_personal') }}">{{ $users->name }}</a></h1>
                 <div class="social-links mt-3 text-center">
                     <a href="https://github.com/simaster19" class="github"><i class="bx bxl-github"></i></a>
                     <a href="https://youtube.com/simaster19" class="youtube"><i class="bx bxl-youtube"></i></a>
@@ -66,15 +67,18 @@
                             <span>Portfolio</span></a></li>
                     <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i>
                             <span>Kontak</span></a></li>
+                    <li><a href="#" class="nav-link scrollto"><i class="bx bx-globe"></i>
+                            <span>Blog</span></a></li>
                 </ul>
             </nav><!-- .nav-menu -->
         </div>
     </header><!-- End Header -->
 
     <!-- ======= Hero Section ======= -->
-    <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
+    <section id="hero" style="background: url('{{ Storage::url($users->background) }}') top center;"
+        class="d-flex flex-column justify-content-center align-items-center">
         <div class="hero-container" data-aos="fade-in">
-            <h1>Miftakhul Kirom</h1>
+            <h1>{{ $users->name }}</h1>
             <p>I'm <span class="typed" data-typed-items="Full Stack Developer, Web Developer, Freelancer"></span></p>
         </div>
     </section><!-- End Hero -->
@@ -87,7 +91,8 @@
 
                 <div class="section-title">
                     <h2>Tentang Saya</h2>
-                    <p>Nama <strong>Miftakhul Kirom</strong> atau biasa di panggil <strong>Kirom</strong>. Pendidikan
+                    <p>Nama <strong>{{ $users->name }}</strong> atau biasa di panggil <strong>Kirom</strong>.
+                        Pendidikan
                         terakhir saya S1 Teknik Informatika di Universitas Selamat Sri Kendal - Jawa Tengah, pengalaman
                         saya di dunia pemrograman sejak saya masih duduk di bangku SMK Rekayasa Perangkat Lunak Tahun
                         2011-2014 sudah menekuni bidang IT dari awal mulai Desktop App sampai Web App.</p>
@@ -95,7 +100,7 @@
 
                 <div class="row">
                     <div class="col-lg-4" data-aos="fade-right">
-                        <img src="{{ url('frontend/assets/img/profile-img.jpg') }}" class="img-fluid" alt="">
+                        <img src="{{ Storage::url($users->foto) }}" class="img-fluid" alt="">
                     </div>
                     <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
                         <h3>Full Stack Web Developer.</h3>
@@ -106,7 +111,7 @@
                                     <li><i class="bi bi-chevron-right"></i> <strong>Alamat:</strong> <span>Kendal, Jawa
                                             Tengah</span></li>
                                     <li><i class="bi bi-chevron-right"></i> <strong>Email:</strong>
-                                        <span>miftakhulkirom@gmail.com</span>
+                                        <span>{{ $users->email }}</span>
                                     </li>
                                     <li><i class="bi bi-chevron-right"></i> <strong>Freelance:</strong>
                                         <span>Available</span>
@@ -143,52 +148,56 @@
                             <p>Sejak 2017 sampai dengan lulus pada tahun 2022 menghasilkan Nilai IPK 3.20</p>
                         </div>
 
-                        <h3 class="resume-title">Tugas Akhir</h3>
+                        <h3 class="resume-title">Skripsi</h3>
                         <div class="resume-item">
                             <h4>SISTEM PEMETAAN TEMPAT KOS BERBASIS WEB</h4>
                             <h5>2022</h5>
-                            <p><em>TA</em></p>
+                            <p><em>Skripsi</em></p>
                             <p>Merancang dan Membangun Sistem Pemetaan Tempat kos di Wilayah Kabupaten Kendal guna untuk
                                 mengetahui persebaran tempat Kos di sekitar kabupaten Kendal.</p>
                         </div>
-
                         <h3 class="resume-title">Freelance</h3>
-                        <div class="resume-item">
-                            <h4>SISTEM PELAYANAN MASYARAKAT DESA KUTOHARJO</h4>
-                            <h5>2023</h5>
-                            <p><em>Client: Ahmad Lubabul Ma'ali</em></p>
-                            <p>Merancang dan Membangun Sistem Pelayanana Masyarakat Desa Kutoharjo guna Memudahkan
-                                Masyarakat untuk memudahkan dalam permintaan surat.</p>
-                        </div>
+                        @foreach ($projects as $project)
+                            @if ($project->status == 'FREELANCE')
+                                <div class="resume-item">
+                                    <h4>{{ $project->judul }}</h4>
+                                    <h5>2023</h5>
+                                    <p><em>Client: {{ $project->nama_client }}</em></p>
+                                    <p>{{ $project->keterangan }}</p>
+                                </div>
+                            @endif
+                        @endforeach
 
-                        <div class="resume-item">
-                            <h4>SISTEM MANAGEMENT CONTER</h4>
-                            <h5>2022</h5>
-                            <p><em>Client: Prio Nanto Tajoko</em></p>
-                            <p>Merancang dan Membangun Sistem management Counter Pulsa guna Memudahkan User untuk
-                                mengelola data masuk ataupun keluar serta laporan bulanan.</p>
-                        </div>
+                        <h3 class="resume-title">Course</h3>
+                        @foreach ($projects as $project)
+                            @if ($project->status == 'COURSE')
+                                <div class="resume-item">
+                                    <h4>{{ $project->judul }}</h4>
+                                    <h5>2023</h5>
+                                    <p><em>Client: {{ $project->nama_client }}</em></p>
+                                    <p>{{ $project->keterangan }}</p>
+                                </div>
+                            @endif
+                        @endforeach
                     </div>
-
                     <div class="col-lg-6 skills" data-aos="fade-up" data-aos-delay="100" id="skills">
                         <h3 class="resume-title">Skill</h3>
                         <div class="row skills-content">
                             @foreach ($skills as $skill)
-                                <div class="progress">
-                                    <span class="skill">{{ $skill->skills }} <i
-                                            class="val">{{ $skill->persen }}%</i></span>
-                                    <div class="progress-bar-wrap">
-                                        <div class="progress-bar" role="progressbar"
-                                            aria-valuenow="{{ $skill->persen }}" aria-valuemin="0"
-                                            aria-valuemax="100"></div>
-                                    </div>
+                                <div style="margin-bottom: -2.4rem" class="progress">
+                                    <span class="skill">{{ $skill->skill }} <i
+                                            class="val">{{ $skill->level }}</i></span>
+                                    {{-- {{-- <div class="progress-bar-wrap">
+                                    <div class="progress-bar" role="progressbar"
+                                        aria-valuenow="{{ $skill->persen }}" aria-valuemin="0"
+                                        aria-valuemax="100"></div> --}}
                                 </div>
-                            @endforeach
                         </div>
+                        @endforeach
                     </div>
-                </div>
 
-            </div>
+
+                </div>
         </section><!-- End Resume Section -->
 
         <!-- ======= Portfolio Section ======= -->
@@ -253,7 +262,7 @@
                             <div class="email">
                                 <i class="bi bi-envelope"></i>
                                 <h4>Email:</h4>
-                                <p>miftakhulkirom@gmail.com</p>
+                                <p>{{ $users->email }}</p>
                             </div>
 
                             <iframe
@@ -265,7 +274,9 @@
                     </div>
 
                     <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
-                        <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+                        <form action="" method="post" role="form" class="php-email-form form_message"
+                            data-url="{{ route('store') }}">
+                            @csrf
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="name">Nama</label>
@@ -287,8 +298,7 @@
                                 <textarea class="form-control" name="message" rows="10" required></textarea>
                             </div>
 
-                            <div class="text-center"><button type="submit"
-                                    onclick="return alert('Message Under Maintenance')">Kirim</button></div>
+                            <div class="text-center kirim"><button type="submit">Kirim</button></div>
                         </form>
                     </div>
 
@@ -319,6 +329,7 @@
             class="bi bi-arrow-up-short"></i></a>
 
     <!-- Vendor JS Files -->
+    <script src="{{ url('frontend/assets/js/jQuery-3.6.4.js') }}"></script>
     <script src="{{ url('frontend/assets/vendor/purecounter/purecounter_vanilla.js') }}"></script>
     <script src="{{ url('frontend/assets/vendor/aos/aos.js') }}"></script>
     <script src="{{ url('frontend/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -327,10 +338,25 @@
     <script src="{{ url('frontend/assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
     <script src="{{ url('frontend/assets/vendor/typed.js/typed.min.js') }}"></script>
     <script src="{{ url('frontend/assets/vendor/waypoints/noframework.waypoints.js') }}"></script>
-    <script src="{{ url('frontend/assets/vendor/php-email-form/validate.js') }}"></script>
 
     <!-- Template Main JS File -->
     <script src="{{ url('frontend/assets/js/main.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('.kirim').on('click', function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: $('.form_message').data('url'),
+                    data: $('form').serialize(),
+                    success: function(response) {
+                        $('.form_message')[0].reset();
+                        alert(response.message);
+                    }
+                });
+            });
+        });
+    </script>
 
 </body>
 

@@ -10,7 +10,7 @@ class MessageController extends Controller
 {
     public function index()
     {
-        $datas = Message::with(['user'])->get();
+        $datas = Message::all();
         return view('admin.app.messages.index', [
             'datas' => $datas
         ]);
@@ -20,6 +20,22 @@ class MessageController extends Controller
     {
         Message::destroy($id);
 
-        return redirect()->route('message');
+        return redirect()->route('message')->with(['success' => 'Data berhasil dihapus!', 'style' => 'success']);
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'subject' => 'required',
+            'message' => 'required'
+        ]);
+
+        $message = Message::create($data);
+
+        return response()->json([
+            'message' => 'Success Send Message!',
+        ]);
     }
 }

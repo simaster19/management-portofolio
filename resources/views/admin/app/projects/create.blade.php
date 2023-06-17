@@ -16,27 +16,27 @@
                                     <div class="form-group">
                                         <label for="judul_project">Judul Project</label>
                                         <input type="text" id="judul_project" class="form-control" name="judul_project"
-                                            placeholder="Judul Project">
+                                            placeholder="Judul Project" required>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="cover">Cover</label>
                                         <input type="file" id="cover" class="form-control" name="cover"
-                                            placeholder="Cover">
+                                            placeholder="Cover" required>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="gambar">Gambar</label>
                                         <input type="file" id="gambar" class="form-control" name="gambar[]"
-                                            placeholder="Gambar" multiple>
+                                            placeholder="Gambar" multiple required>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="jenis_project">Jenis Project</label>
-                                        <select name="jenis_project" id="jenis_project" class="form-select">
+                                        <select name="jenis_project" id="jenis_project" class="form-select" required>
                                             <option value="web">WEB</option>
                                             <option value="android">ANDROID</option>
                                             <option value="desktop">DESKTOP</option>
@@ -46,9 +46,8 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="development">Development</label>
-
                                         <select name="development[]" id="development" class="choices form-select"
-                                            multiple="multiple">
+                                            multiple="multiple" required>
                                             <option value="HTML" selected>HTML</option>
                                             <option value="CSS" selected>CSS</option>
                                             <option value="PHP" selected>PHP</option>
@@ -75,13 +74,31 @@
                                         <div class="form-group">
                                             <label for="project_url">Project URL</label>
                                             <input type="text" id="project_url" class="form-control" name="project_url"
-                                                placeholder="URL">
+                                                placeholder="URL" required>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label for="keterangan">Keterangan</label>
                                             <textarea name="keterangan" id="keterangan" cols="50" rows="10" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="status">Status Project</label>
+                                            <select name="status" id="status" class="form-select" required>
+                                                <option value="" selected disabled>--Pilih Status--</option>
+                                                <option value="PERSONAL">PERSONAL</option>
+                                                <option value="FREELANCE">FREELANCE</option>
+                                                <option value="COURSE">COURSE</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="nama_client">Nama Client</label>
+                                            <input type="text" id="nama_client" class="form-control" name="nama_client"
+                                                placeholder="Nama Client" required>
                                         </div>
                                     </div>
                                     <div class="col-12 d-flex justify-content-end">

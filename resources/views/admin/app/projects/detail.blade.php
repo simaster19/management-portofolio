@@ -44,6 +44,14 @@
                                 <td>{{ $data->keterangan }}</td>
                             </tr>
                             <tr>
+                                <th>Status Project</th>
+                                <td>{{ $data->status }}</td>
+                            </tr>
+                            <tr>
+                                <th>Nama Client</th>
+                                <td>{{ $data->nama_client }}</td>
+                            </tr>
+                            <tr>
                                 <th>Images</th>
                                 <td>
                                     <table>

@@ -13,16 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('skills', function (Blueprint $table) {
+        Schema::create('surats', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_user');
-            $table->string('skill');
-            $table->string('level')->default('MIDDLE'); //BEGINNER,MIDDLE,PRO,EXPERT
-            $table->string('link_sertifikat');
-            $table->softDeletes();
+            $table->string('nama_surat', 100);
+            $table->string('no_surat', 30);
             $table->timestamps();
-
-            $table->foreign('id_user')->references('id')->on('users');
         });
     }
 
@@ -33,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('skills');
+        Schema::dropIfExists('surats');
     }
 };

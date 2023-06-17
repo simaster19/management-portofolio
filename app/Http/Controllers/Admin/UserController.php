@@ -12,55 +12,46 @@ use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
+        $datas = User::all();
         return view('admin.app.users.index', [
-            'datas' => User::all()
+            'datas' => $datas
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         return view('admin.app.users.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
 
         $data = $request->all();
 
         $data['foto'] = $request->file('foto')->store(
-            'assets/images',
+            'assets/images/foto',
+            ['disk' => 'public']
+        );
+        $data['foto'] = $request->file('background')->store(
+            'assets/images/background',
             ['disk' => 'public']
         );
 
         $data['password'] = Hash::make($data['password']);
         User::create($data);
-        return redirect()->route('users.index');
+
+        return redirect()->route('users.index')->with(
+            [
+                'success' => 'Data berhasil ditambahkan!',
+                'style' => 'success'
+            ]
+        );
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $data = User::where('id', $id)->get()->first();
@@ -87,13 +78,26 @@ class UserController extends Controller
 
         if ($request->has('foto')) {
             File::delete('storage/' . $dataUser['foto']);
+
             $data['foto'] = $request->file('foto')->store(
-                'assets/images',
+                'assets/images/foto',
                 ['disk' => 'public']
             );
         } else {
             $data['foto'] = $dataUser['foto'];
         }
+
+        if ($request->has('background')) {
+            File::delete('storage/' . $dataUser['background']);
+
+            $data['background'] = $request->file('background')->store(
+                'assets/images/background',
+                ['disk' => 'public']
+            );
+        } else {
+            $data['background'] = $dataUser['background'];
+        }
+
 
         if ($data['password'] == '') {
             $data['password'] = $dataUser['password'];
@@ -101,9 +105,13 @@ class UserController extends Controller
             $data['password'] = Hash::make($data['password']);
         }
 
+
         $dataUser->update($data);
 
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->with([
+            'success' => 'Data berhasil diubah!',
+            'style' => 'success'
+        ]);
     }
 
 
@@ -111,8 +119,12 @@ class UserController extends Controller
     {
         $data = User::findOrFail($id);
         File::delete('storage/' . $data['foto']);
+        File::delete('storage/' . $data['background']);
         $data->destroy($id);
 
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->with([
+            'success' => 'Data berhasil dihapus!',
+            'style' => 'danger'
+        ]);
     }
 }

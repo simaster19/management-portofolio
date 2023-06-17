@@ -18,11 +18,13 @@ return new class extends Migration
             $table->unsignedBigInteger('id_user');
             $table->text('cover');
             $table->string('jenis_project');
-            $table->string('judul');
+            $table->string('judul')->unique();
             $table->string('slug');
             $table->text('project_url');
             $table->string('dibuat_dengan');
+            $table->string('nama_client', 50);
             $table->text('keterangan');
+            $table->string('status', 50)->default('PERSONAL'); //PERSONAL, FREELANCE, COURSE
             $table->softDeletes();
             $table->timestamps();
 
